@@ -3,7 +3,9 @@
 ## Disclaimer/Attention
 
 This is a school project. We do not recommend the use of the information output by the algorithm as a financial advice.  
+
 This is the second year project by Marc.
+
 Ceci est un projet scolaire. Nous ne recommandons pas l'usage des informations en sortie de l'algorithme comme conseil financier.
 
 ---
