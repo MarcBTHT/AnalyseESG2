@@ -49,7 +49,7 @@ class TwitterClient(object):
 
     def TwitterSS(query):
         client = TwitterClient()
-        collected_data=client.lastSevenDaysTweets(query).data
+        collected_data=client.lastSevenDaysTweets(query).data # Recupère les tweet en lien avec la companie 
         for i in range(len(collected_data)):
             test=collected_data[0].text #changer 0 avec un iterateur
             text=[]

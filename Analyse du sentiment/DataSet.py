@@ -41,8 +41,8 @@ class DataSet : #cette classe gère le fichier excel du dataset => va récupére
             if (companies["Final Score"][i]<expectedscore) : companies = companies.drop(i) 
         return companies
     
-    
+"""  
 if __name__ == "__main__":
-    notreDataSet=DataSet("/Users/user/Documents/Finance/CAC40_valeurs_ESG.xlsx",0.7,0.2,0.1,85)
+    notreDataSet=DataSet("C:/Users/Marc/OneDrive - De Vinci/Bureau/Ping/Reverse engineering/AnalyseESG2/Analyse du sentiment/CAC40_valeurs_ESG.xlsx",0.7,0.2,0.1,85)
     print (notreDataSet.titres)
-    
+"""

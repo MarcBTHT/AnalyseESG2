@@ -14,7 +14,7 @@ from DataSet import DataSet
 import matplotlib.pyplot as plt
 
 def Algo(Ecoef,Scoef,Gcoef,expectedscore):
-    OurDataSet=DataSet("/Users/user/Documents/Finance/CAC40_valeurs_ESG.xlsx", Ecoef,Scoef,Gcoef,expectedscore)
+    OurDataSet=DataSet("C:/Users/Marc/OneDrive - De Vinci/Bureau/Ping/Reverse engineering/AnalyseESG2/Analyse du sentiment/CAC40_valeurs_ESG.xlsx", Ecoef,Scoef,Gcoef,expectedscore)
     ssresultyahoo=[]
     ssresulttwitter=[]
     sumcyahooresult=[]
@@ -22,27 +22,34 @@ def Algo(Ecoef,Scoef,Gcoef,expectedscore):
     companies=[]
     esgscores=[]
     tupleresult=[]
-    for i in OurDataSet.titres["Company"]:
-        ssresultyahoo.append(YahooFinance.YahooFinanceSS(YahooFinance.CleaningData(str(i))))  #liste de dictionnaires selon company
-        ssresulttwitter.append(TwitterClient.TwitterSS(str(i)))  #liste de dictionnaires selon company
+
+    for i in OurDataSet.titres["Company"]: 
+        ssresultyahoo.append(YahooFinance.YahooFinanceSS(YahooFinance.CleaningData(str(i))))  #liste de dictionnaires selon company (Liste des scores de chaque tweet en fct des companies) (partie webScrapping)
+        ssresulttwitter.append(TwitterClient.TwitterSS(str(i)))  #liste de dictionnaires selon company  (Regarde les tweets en lien avec la companie) (partie Twitter)
         companies.append(str(i))
-    for i in OurDataSet.titres["Final Score"]:
+
+    for i in OurDataSet.titres["Final Score"]: #Recupère le score ESG des boites (en fct de l'excel)
         esgscores.append(float(i))
-    for i in ssresultyahoo: 
+
+    for i in ssresultyahoo: # Retourne le score final de chaque companie
         sumcyahoo=0
         if (i!=[]):
             for j in i:
                 sumcyahoo+=j["compound"] #on récupère et on somme tout les compound concernant la company
         sumcyahooresult.append(sumcyahoo) 
-    for i in ssresulttwitter:
+
+    for i in ssresulttwitter: #Pareil pour twitter
         sumctwitter=0
         if (i!=[]):
             for j in i:
                 sumctwitter+=j["compound"] #on récupère et on somme tout les compound concernant la company
         sumctwitterresult.append(sumctwitter)
+    
     compoundresult=[sumcyahooresult[i]+sumctwitterresult[i] for i in range(len(sumctwitterresult))] #en index i, la company (classée i-ème) obtient son score compound
+    
     for i in range(len(compoundresult)):
         tupleresult.append((companies[i],round(compoundresult[i],2),round(esgscores[i],2)))
+    
     return tupleresult
 
 def DisplayResults(tupleresult):

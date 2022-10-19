@@ -12,7 +12,7 @@ from SentimentIntensityAnalyzer import SentimentIntensityAnalyzerClass
 def YahooFinanceSS(text):
     ssresult=[]
     for sentence in text:
-        sid = SentimentIntensityAnalyzerClass() 
+        sid = SentimentIntensityAnalyzerClass() # Analyse le texte garder de CleaningData 
         ss = sid.polarity_scores(sentence)
         ssresult.append(ss)
     return ssresult
@@ -22,7 +22,7 @@ def CleaningData(query):
     collected_data=client.client.get_users_tweets(id="19546277").data #récupère tout les tweets de yahoo finance
     text=[]
     for data in collected_data:
-        if (query in data.text):
+        if (query in data.text): # Verifie si la companie est cité dans le tweet
             text.append(data.text)
     return text
     
